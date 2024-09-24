@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Store.Data.Contexts;
 using Store.Repository.Interfaces;
+using Store.Service.ProductService.Dtos;
 using Store.Web.Helper;
 
 namespace Store.Web
@@ -23,6 +24,8 @@ namespace Store.Web
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
             builder.Services.AddScoped<IUnitOfWork,IUnitOfWork>();
+            builder.Services.AddAutoMapper(typeof(ProductProfile));
+
             var app = builder.Build();
             await ApplySeeding.ApplySeedingAsync(app);
 

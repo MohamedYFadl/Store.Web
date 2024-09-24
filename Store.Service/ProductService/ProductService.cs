@@ -1,25 +1,24 @@
-﻿using Store.Data.Entities;
+﻿using AutoMapper;
+using Store.Data.Entities;
 using Store.Repository.Interfaces;
 using Store.Service.ProductService.Dtos;
+using System.Collections.Generic;
 namespace Store.Service.ProductService
 {
     public class ProductService : IProductService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public ProductService(IUnitOfWork unitOfWork)
+        public ProductService(IUnitOfWork unitOfWork,IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         public async Task<IReadOnlyList<BrandTypeDetailsDto>> GetAllBrandsAsync()
         {
             var brands = await _unitOfWork.Repository<ProductBrand, int>().GetAllAsNoTrackingAsync();
-            var mappedBrands = brands.Select(x => new BrandTypeDetailsDto
-            {
-                Id = x.Id,
-                Name = x.Name,
-                CreatedAt = x.CreateAt,
-            }).ToList();
+            var mappedBrands = _mapper.Map< IReadOnlyList < BrandTypeDetailsDto >>(brands);
             return mappedBrands;
         }
         
@@ -27,29 +26,14 @@ namespace Store.Service.ProductService
         public async Task<IReadOnlyList<ProductDetailsDto>> GetAllProductsAsync()
         {
             var products = await _unitOfWork.Repository<Product, int>().GetAllAsNoTrackingAsync();
-            var mappedProducts = products.Select(x => new ProductDetailsDto
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Description = x.Description,
-                CreatedAt = x.CreateAt,
-                BrandName = x.Brand.Name,
-                TypeName = x.Type.Name,
-                PictureUrl = x.PictureUrl,
-                Price = x.Price,
-            }).ToList();
+            var mappedProducts = _mapper.Map< IReadOnlyList < ProductDetailsDto >>(products);
             return mappedProducts; 
         }
 
         public async Task<IReadOnlyList<BrandTypeDetailsDto>> GetAllTypesAsync()
         {
             var types = await _unitOfWork.Repository<ProductType, int>().GetAllAsNoTrackingAsync();
-            var mappedTypes = types.Select(x => new BrandTypeDetailsDto
-            {
-                Id = x.Id,
-                Name = x.Name,
-                CreatedAt = x.CreateAt,
-            }).ToList();
+            var mappedTypes = _mapper.Map< IReadOnlyList < BrandTypeDetailsDto >>(types);
             return mappedTypes;
         }
 
@@ -64,18 +48,7 @@ namespace Store.Service.ProductService
                 throw new Exception("product Is not found");
 
 
-            var mappedProduct = new ProductDetailsDto {
-                Id = product.Id,
-                Name = product.Name,
-                Price = product.Price,
-                PictureUrl = product.PictureUrl,
-                CreatedAt = product.CreatedAt,
-                Description = product.Description,
-                BrandName= product.Brand.Name,
-                TypeName = product.Type.Name,
-                
-                
-            };
+            var mappedProduct = _mapper.Map< ProductDetailsDto >(product);
             return mappedProduct;
 
         }
