@@ -18,7 +18,7 @@ namespace Store.Service.ProductService
         public async Task<IReadOnlyList<BrandTypeDetailsDto>> GetAllBrandsAsync()
         {
             var brands = await _unitOfWork.Repository<ProductBrand, int>().GetAllAsNoTrackingAsync();
-            var mappedBrands = _mapper.Map< IReadOnlyList < BrandTypeDetailsDto >>(brands);
+            var mappedBrands = _mapper.Map<IReadOnlyList< BrandTypeDetailsDto>>(brands);
             return mappedBrands;
         }
         

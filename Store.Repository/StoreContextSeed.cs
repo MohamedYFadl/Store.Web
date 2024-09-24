@@ -19,14 +19,14 @@ namespace Store.Repository
                 }
                 if (Context.ProductTypes != null && !Context.ProductTypes.Any())
                 {
-                    var TypesData = File.ReadAllText("../Store.Repository/SeedData/brands.json");
+                    var TypesData = File.ReadAllText("../Store.Repository/SeedData/types.json");
                     var Types = JsonSerializer.Deserialize<List<ProductType>>(TypesData);
                     if (Types is not null)
                         await Context.ProductTypes.AddRangeAsync(Types);
                 }
                 if (Context.Products != null && !Context.Products.Any())
                 {
-                    var ProductsData = File.ReadAllText("../Store.Repository/SeedData/brands.json");
+                    var ProductsData = File.ReadAllText("../Store.Repository/SeedData/products.json");
                     var Products = JsonSerializer.Deserialize<List<Product>>(ProductsData);
                     if (Products is not null)
                         await Context.Products.AddRangeAsync(Products);
