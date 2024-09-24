@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Store.Data.Contexts;
+using Store.Repository.Interfaces;
 using Store.Web.Helper;
 
 namespace Store.Web
@@ -21,7 +22,7 @@ namespace Store.Web
             builder.Services.AddDbContext<StoreDbContext>(options => {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
-
+            builder.Services.AddScoped<IUnitOfWork,IUnitOfWork>();
             var app = builder.Build();
             await ApplySeeding.ApplySeedingAsync(app);
 
