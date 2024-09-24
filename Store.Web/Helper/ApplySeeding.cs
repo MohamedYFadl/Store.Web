@@ -21,7 +21,7 @@ namespace Store.Web.Helper
                 catch (Exception ex)
                 {
 
-                    var logger = loggerFactory.CreateLogger<StoreContextSeed>();
+                    var logger = loggerFactory.CreateLogger<ApplySeeding>();
                     logger.LogError(ex.Message);
                 }
 
