@@ -18,7 +18,7 @@ namespace Store.Service.ProductService
         public async Task<IReadOnlyList<BrandTypeDetailsDto>> GetAllBrandsAsync()
         {
             var brands = await _unitOfWork.Repository<ProductBrand, int>().GetAllAsNoTrackingAsync();
-            var mappedBrands = _mapper.Map<IReadOnlyList< BrandTypeDetailsDto>>(brands);
+            var mappedBrands = _mapper.Map<IReadOnlyList<BrandTypeDetailsDto>>(brands);
             return mappedBrands;
         }
         
@@ -33,7 +33,7 @@ namespace Store.Service.ProductService
         public async Task<IReadOnlyList<BrandTypeDetailsDto>> GetAllTypesAsync()
         {
             var types = await _unitOfWork.Repository<ProductType, int>().GetAllAsNoTrackingAsync();
-            var mappedTypes = _mapper.Map< IReadOnlyList < BrandTypeDetailsDto >>(types);
+            var mappedTypes = _mapper.Map<IReadOnlyList<BrandTypeDetailsDto>>(types);
             return mappedTypes;
         }
 
@@ -48,7 +48,7 @@ namespace Store.Service.ProductService
                 throw new Exception("product Is not found");
 
 
-            var mappedProduct = _mapper.Map< ProductDetailsDto >(product);
+            var mappedProduct = _mapper.Map<ProductDetailsDto>(product);
             return mappedProduct;
 
         }

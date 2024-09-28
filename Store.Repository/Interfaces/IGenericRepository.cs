@@ -1,4 +1,5 @@
 ﻿using Store.Data.Entities;
+using Store.Repository.Specification;
 
 namespace Store.Repository.Interfaces
 {
@@ -7,6 +8,8 @@ namespace Store.Repository.Interfaces
         Task<TEntity> GetByIdAsync(Tkey? id);
         Task<IReadOnlyList<TEntity>> GetAllAsync();
         Task<IReadOnlyList<TEntity>> GetAllAsNoTrackingAsync();
+        Task<TEntity> GetWithSpecsByIdAsync(ISpecification<TEntity> specs);
+        Task<IReadOnlyList<TEntity>> GetAllWithSpecsAsync(ISpecification<TEntity> specs);
         Task AddAsync(TEntity entity);
         void DeleteAsync(TEntity entity);
         void UpdateAsync(TEntity entity);
