@@ -4,7 +4,6 @@ using Store.Repository.Interfaces;
 using Store.Repository.Specification.ProductSpecs;
 using Store.Service.Helper;
 using Store.Service.ProductService.Dtos;
-using System.Collections.Generic;
 namespace Store.Service.ProductService
 {
     public class ProductService : IProductService
