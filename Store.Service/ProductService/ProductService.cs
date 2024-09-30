@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Store.Data.Entities;
 using Store.Repository.Interfaces;
+using Store.Repository.Specification.ProductSpecs;
 using Store.Service.ProductService.Dtos;
 using System.Collections.Generic;
 namespace Store.Service.ProductService
@@ -23,9 +24,10 @@ namespace Store.Service.ProductService
         }
         
 
-        public async Task<IReadOnlyList<ProductDetailsDto>> GetAllProductsAsync()
+        public async Task<IReadOnlyList<ProductDetailsDto>> GetAllProductsAsync(ProductSpecification input)
         {
-            var products = await _unitOfWork.Repository<Product, int>().GetAllAsNoTrackingAsync();
+            var specs = new ProductWithSpecs(input);
+            var products = await _unitOfWork.Repository<Product, int>().GetAllWithSpecsAsync(specs);
             var mappedProducts = _mapper.Map<IReadOnlyList<ProductDetailsDto>>(products);
             return mappedProducts; 
         }
