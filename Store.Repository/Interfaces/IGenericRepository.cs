@@ -10,6 +10,7 @@ namespace Store.Repository.Interfaces
         Task<IReadOnlyList<TEntity>> GetAllAsNoTrackingAsync();
         Task<TEntity> GetWithSpecsByIdAsync(ISpecification<TEntity> specs);
         Task<IReadOnlyList<TEntity>> GetAllWithSpecsAsync(ISpecification<TEntity> specs);
+        Task<int> GetCountSpecsAsync(ISpecification<TEntity> specs);
         Task AddAsync(TEntity entity);
         void DeleteAsync(TEntity entity);
         void UpdateAsync(TEntity entity);

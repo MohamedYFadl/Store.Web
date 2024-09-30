@@ -16,10 +16,23 @@ namespace Store.Repository.Specification
 
         public Expression<Func<T, object>> OrderByDesc { get; private set; }
 
+        public int Take { get; private set; }
+
+        public int Skip { get; private set; }
+
+        public bool IsPaginated { get; private set; }
+
         protected void AddOrderBy(Expression<Func<T, object>> orderByExpression)
             => OrderBy=orderByExpression;
         protected void AddOrderByDesc(Expression<Func<T, object>> orderByDescExpression)
             => OrderByDesc = orderByDescExpression;
+
+        protected void ApplyPagination(int skip, int take)
+        {
+            Take = take;
+            Skip = skip;
+            IsPaginated = true;
+        }
 
     }
 }

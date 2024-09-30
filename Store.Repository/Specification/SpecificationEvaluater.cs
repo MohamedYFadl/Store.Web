@@ -17,6 +17,9 @@ namespace Store.Repository.Specification
             if(specs.OrderByDesc is not null)
                 query = query.OrderByDescending(specs.OrderByDesc);
 
+            if(specs.IsPaginated)
+                query= query.Skip(specs.Skip).Take(specs.Take);
+
             query = specs.Includes.Aggregate(query,(current,includeExpression) => current.Include(includeExpression));
 
             return query;
