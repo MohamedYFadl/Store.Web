@@ -6,6 +6,7 @@ using Store.Repository.Repositories;
 using Store.Service.ProductService;
 using Store.Service.ProductService.Dtos;
 using Store.Web.Helper;
+using Store.Web.MiddleWare;
 
 namespace Store.Web
 {
@@ -39,7 +40,7 @@ namespace Store.Web
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseMiddleware<ExpectionMiddleware>();
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
