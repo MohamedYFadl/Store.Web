@@ -6,10 +6,10 @@ namespace Store.Repository.Specification.ProductSpecs
     {
         public ProductWithSpecs(ProductSpecification specs)
             : base(product => (!specs.BrandId.HasValue || product.BrandId == specs.BrandId.Value) &&
-            (!specs.TypeId.HasValue || product.BrandId == specs.TypeId.Value))
+            (!specs.TypeId.HasValue || product.TypeId == specs.TypeId.Value))
         {
-            AddInclude(x => x.BrandId);
-            AddInclude(x => x.TypeId);
+            AddInclude(x => x.Brand);
+            AddInclude(x => x.Type);
         }
     }
 }
