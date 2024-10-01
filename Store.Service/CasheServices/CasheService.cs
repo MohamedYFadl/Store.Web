@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace Store.Service.CasheServices
 {
-    internal class CasheService : ICasheService
+    public class CasheService : ICasheService
     {
         private readonly IDatabase _database;
         public CasheService(IConnectionMultiplexer redis)
