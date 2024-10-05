@@ -4,7 +4,6 @@ using Store.Repository.Interfaces;
 using Store.Repository.Specification.ProductSpecs;
 using Store.Service.Helper;
 using Store.Service.ProductService.Dtos;
-using System.Collections.Generic;
 namespace Store.Service.ProductService
 {
     public class ProductService : IProductService
@@ -51,7 +50,7 @@ namespace Store.Service.ProductService
                 throw new Exception("Id Is Null");
 
             var specs = new ProductWithSpecs(ProductId);
-            var product = _unitOfWork.Repository<Product, int>().GetWithSpecsByIdAsync(specs);
+            var product = await _unitOfWork.Repository<Product, int>().GetWithSpecsByIdAsync(specs);
 
             if(product is null)
                 throw new Exception("product Is not found");
