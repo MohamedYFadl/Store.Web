@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Store.Data.Entities;
 
-namespace Store.Service.ProductService.Dtos
+namespace Store.Service.Services.ProductService.Dtos
 {
     public class ProductPictureUrlResolver : IValueResolver<Product, ProductDetailsDto, string>
     {

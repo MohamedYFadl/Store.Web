@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Store.Repository.Specification.ProductSpecs;
-using Store.Service.ProductService;
-using Store.Service.ProductService.Dtos;
+using Store.Service.Services.ProductService;
+using Store.Service.Services.ProductService.Dtos;
 using Store.Web.Helper;
 
 namespace Store.Web.Controllers

@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Store.Repository.Interfaces;
 using Store.Repository.Repositories;
-using Store.Service.ProductService.Dtos;
-using Store.Service.ProductService;
 using Store.Service.HandleResponses;
-using Store.Service.CasheServices;
+using Store.Service.Services.ProductService;
+using Store.Service.Services.ProductService.Dtos;
+using Store.Service.Services.CasheServices;
 
 namespace Store.Web.Extensions
 {

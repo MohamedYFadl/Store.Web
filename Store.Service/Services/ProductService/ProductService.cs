@@ -3,15 +3,15 @@ using Store.Data.Entities;
 using Store.Repository.Interfaces;
 using Store.Repository.Specification.ProductSpecs;
 using Store.Service.Helper;
-using Store.Service.ProductService.Dtos;
-namespace Store.Service.ProductService
+using Store.Service.Services.ProductService.Dtos;
+namespace Store.Service.Services.ProductService
 {
     public class ProductService : IProductService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public ProductService(IUnitOfWork unitOfWork,IMapper mapper)
+        public ProductService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -22,7 +22,7 @@ namespace Store.Service.ProductService
             var mappedBrands = _mapper.Map<IReadOnlyList<BrandTypeDetailsDto>>(brands);
             return mappedBrands;
         }
-        
+
 
         public async Task<PaginatedResultDto<ProductDetailsDto>> GetAllProductsAsync(ProductSpecification input)
         {
@@ -34,7 +34,7 @@ namespace Store.Service.ProductService
 
             var mappedProducts = _mapper.Map<IReadOnlyList<ProductDetailsDto>>(products);
 
-            return new PaginatedResultDto<ProductDetailsDto>(input.PageIndex, count, input.PageSize, mappedProducts); 
+            return new PaginatedResultDto<ProductDetailsDto>(input.PageIndex, count, input.PageSize, mappedProducts);
         }
 
         public async Task<IReadOnlyList<BrandTypeDetailsDto>> GetAllTypesAsync()
@@ -52,7 +52,7 @@ namespace Store.Service.ProductService
             var specs = new ProductWithSpecs(ProductId);
             var product = await _unitOfWork.Repository<Product, int>().GetWithSpecsByIdAsync(specs);
 
-            if(product is null)
+            if (product is null)
                 throw new Exception("product Is not found");
 
 
