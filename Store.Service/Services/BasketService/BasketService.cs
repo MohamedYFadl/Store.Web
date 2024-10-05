@@ -5,12 +5,12 @@ using Store.Service.Services.BasketServcies.Dtos;
 
 namespace Store.Service.Services.BasketServcies
 {
-    public class BasketServices : IBasketServices
+    public class BasketService : IBasketService
     {
         private readonly BasketRepository _basketRepository;
         private readonly IMapper _mapper;
 
-        public BasketServices(BasketRepository basketRepository,IMapper mapper)
+        public BasketService(BasketRepository basketRepository,IMapper mapper)
         {
             _basketRepository = basketRepository;
             _mapper = mapper;
@@ -20,7 +20,7 @@ namespace Store.Service.Services.BasketServcies
 
         public async Task<CustomerBasketDto> GetBasketAsync(string basketId)
         {
-            var basket = await _basketRepository.DeleteBasketAsync(basketId);
+            var basket = await _basketRepository.GetBasketAsync(basketId);
             if(basket == null)
                 return new CustomerBasketDto();
 
@@ -31,7 +31,7 @@ namespace Store.Service.Services.BasketServcies
         public async Task<CustomerBasketDto> UpdateBasketAsync(CustomerBasketDto input)
         {
             if (input.Id == null)
-                input.Id = GenerateRandomBasketId() ;
+                input.Id = GenerateRandomBasketId();
             var customerBasket = _mapper.Map<CustomerBasket>(input);
             var updatedBasket = await _basketRepository.UpdateBasketAsync(customerBasket);
             var basket = _mapper.Map<CustomerBasketDto>(updatedBasket);

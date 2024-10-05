@@ -1,9 +1,8 @@
-﻿using Store.Repository.Basket.Models;
-using Store.Service.Services.BasketServcies.Dtos;
+﻿using Store.Service.Services.BasketServcies.Dtos;
 
 namespace Store.Service.Services.BasketServcies
 {
-    public interface IBasketServices
+    public interface IBasketService
     {
         Task<CustomerBasketDto> GetBasketAsync(string basketId);
         Task<CustomerBasketDto> UpdateBasketAsync(CustomerBasketDto basket);

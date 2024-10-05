@@ -1,10 +1,5 @@
 ﻿using AutoMapper;
 using Store.Repository.Basket.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Store.Service.Services.BasketServcies.Dtos
 {

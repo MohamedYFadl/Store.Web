@@ -8,7 +8,7 @@ namespace Store.Repository.Basket
     {
         private readonly IDatabase _database;
 
-        public BasketRepository(IConnectionMultiplexer redis )
+        public BasketRepository(IConnectionMultiplexer redis)
         {
             _database = redis.GetDatabase();
         }

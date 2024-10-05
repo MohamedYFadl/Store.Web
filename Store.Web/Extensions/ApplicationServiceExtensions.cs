@@ -18,8 +18,8 @@ namespace Store.Web.Extensions
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICasheService, CasheService>();
-            services.AddScoped<IBasketServices, BasketServices>();
             services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<IBasketService, BasketService>();
 
             services.AddAutoMapper(typeof(ProductProfile));
             services.AddAutoMapper(typeof(BasketProfile));
