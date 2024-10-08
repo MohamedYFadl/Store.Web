@@ -10,7 +10,7 @@ namespace Store.Web.MiddleWare
         private readonly IHostEnvironment _environment;
         private readonly ILogger _logger;
 
-        public ExpectionMiddleware(RequestDelegate next,IHostEnvironment environment,ILogger logger)
+        public ExpectionMiddleware(RequestDelegate next,IHostEnvironment environment,ILogger<ExpectionMiddleware> logger)
         {
             _next = next;
             _environment = environment;
@@ -25,7 +25,6 @@ namespace Store.Web.MiddleWare
             }
             catch (Exception ex)
             {
-
                 _logger.LogError(ex, ex.Message);
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode =(int) HttpStatusCode.InternalServerError;

@@ -1,3 +1,4 @@
+
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
 using Store.Data.Contexts;
@@ -20,13 +21,17 @@ namespace Store.Web
             builder.Services.AddDbContext<StoreDbContext>(options => {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
-            builder.Services.AddSingleton<IConnectionMultiplexer>(config =>
-            {
-                var configuration = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"));
-                
-                return ConnectionMultiplexer.Connect(configuration);
+            builder.Services.AddDbContext<StoreIdentityDbContext>(options => {  
+                options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection"));
+            });
+            builder.Services.AddSingleton<IConnectionMultiplexer>(config=>{
+                var configurtaion = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"));
+                return ConnectionMultiplexer.Connect(configurtaion);
             });
             builder.Services.AddApplicationServices();
+            builder.Services.AddIdentityServices();
+
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -44,6 +49,7 @@ namespace Store.Web
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();

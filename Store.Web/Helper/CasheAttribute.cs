@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Store.Service.CasheServices;
+using Store.Service.Services.CasheServices;
 using System.Text;
 
 namespace Store.Web.Helper

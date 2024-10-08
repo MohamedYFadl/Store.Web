@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Store.Data.Entities;
 
-namespace Store.Service.ProductService.Dtos
+namespace Store.Service.Services.ProductService.Dtos
 {
-    public class ProductProfile:Profile
+    public class ProductProfile : Profile
     {
         public ProductProfile()
         {

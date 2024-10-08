@@ -1,7 +1,7 @@
 ﻿using StackExchange.Redis;
 using System.Text.Json;
 
-namespace Store.Service.CasheServices
+namespace Store.Service.Services.CasheServices
 {
     public class CasheService : ICasheService
     {

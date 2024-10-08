@@ -1,8 +1,8 @@
 ﻿using Store.Repository.Specification.ProductSpecs;
 using Store.Service.Helper;
-using Store.Service.ProductService.Dtos;
+using Store.Service.Services.ProductService.Dtos;
 
-namespace Store.Service.ProductService
+namespace Store.Service.Services.ProductService
 {
     public interface IProductService
     {
