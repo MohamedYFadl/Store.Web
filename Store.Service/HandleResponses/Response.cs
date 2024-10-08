@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace Store.Service.HandleResponses
+﻿namespace Store.Service.HandleResponses
 {
     public class Response
     {

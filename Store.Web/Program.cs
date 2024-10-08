@@ -45,7 +45,7 @@ namespace Store.Web
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            app.UseMiddleware<ExpectionMiddleware>();  
+            app.UseMiddleware<ExpectionMiddleware>();
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();

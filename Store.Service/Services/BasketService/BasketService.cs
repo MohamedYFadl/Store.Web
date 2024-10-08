@@ -7,10 +7,10 @@ namespace Store.Service.Services.BasketServcies
 {
     public class BasketService : IBasketService
     {
-        private readonly BasketRepository _basketRepository;
+        private readonly IBasketRepository _basketRepository;
         private readonly IMapper _mapper;
 
-        public BasketService(BasketRepository basketRepository,IMapper mapper)
+        public BasketService(IBasketRepository basketRepository,IMapper mapper)
         {
             _basketRepository = basketRepository;
             _mapper = mapper;
