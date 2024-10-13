@@ -15,5 +15,7 @@
         public decimal GetTotal() 
             =>SubTotal+DeliveryMethod.Price;
 
+        public string? PaymentIntentId { get; set; }
+
     }
 }
