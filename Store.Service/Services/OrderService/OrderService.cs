@@ -2,6 +2,7 @@
 using Store.Data.Entities;
 using Store.Data.Entities.OrderEntities;
 using Store.Repository.Interfaces;
+using Store.Repository.Specification.OrderSpecs;
 using Store.Service.Services.BasketServcies;
 using Store.Service.Services.OrderService.Dtos;
 
@@ -90,19 +91,34 @@ namespace Store.Service.Services.OrderService
             #endregion
         }
 
-        public Task<IReadOnlyList<OrderDetailsDto>> GetAllOrdersForUserAsync(string buyerEmail)
+        public async Task<IReadOnlyList<OrderDetailsDto>> GetAllOrdersForUserAsync(string buyerEmail)
         {
-            throw new NotImplementedException();
+            var specs = new OrderWithItemSpec(buyerEmail);
+            var orders = await  _unitOfWork.Repository<Order,Guid>().GetAllWithSpecsAsync(specs);
+
+            if (!orders.Any())
+                throw new Exception("You do not have any orders yet!");
+
+            var mappedOrders = _mapper.Map<List<OrderDetailsDto>>(orders);
+
+            return mappedOrders;
         }
 
-        public Task<IReadOnlyList<DeliveryMethod>> GetDeliveryMethodsAsync()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IReadOnlyList<DeliveryMethod>> GetAllDeliveryMethodsAsync()
+           => await _unitOfWork.Repository<DeliveryMethod, int>().GetAllAsync();
 
-        public Task<OrderDetailsDto> GetOrderByIdAsync(Guid id)
+
+        public async Task<OrderDetailsDto> GetOrderByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var specs = new OrderWithItemSpec(id);
+            var order = await _unitOfWork.Repository<Order, Guid>().GetWithSpecsByIdAsync(specs);
+
+            if (order is null)
+                throw new Exception($"There is no order With Id {id}");
+
+            var mappedOrder = _mapper.Map<OrderDetailsDto>(order);
+
+            return mappedOrder;
         }
     }
 }
