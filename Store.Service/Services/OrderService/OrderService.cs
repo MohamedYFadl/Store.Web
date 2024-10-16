@@ -5,6 +5,9 @@ using Store.Repository.Interfaces;
 using Store.Repository.Specification.OrderSpecs;
 using Store.Service.Services.BasketServcies;
 using Store.Service.Services.OrderService.Dtos;
+using Store.Service.Services.PaymentService;
+using Stripe;
+using Product = Store.Data.Entities.Product;
 
 namespace Store.Service.Services.OrderService
 {
@@ -13,16 +16,19 @@ namespace Store.Service.Services.OrderService
         private readonly IBasketService _basketService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IPaymentService _paymentService;
 
         public OrderService(
             IBasketService basketService,
             IUnitOfWork unitOfWork,
-            IMapper mapper
+            IMapper mapper,
+            IPaymentService paymentService
             )
         {
             _basketService = basketService;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _paymentService = paymentService;
         }
         public async Task<OrderDetailsDto> CreateOrderAsync(OrderDto input)
         {
@@ -68,9 +74,17 @@ namespace Store.Service.Services.OrderService
             var subtotal = orderItems.Sum(item=>item.Quantity*item.Price);
             #endregion
             #region To Do => Payment
+            var specs = new OrderWithPaymentIntentSpecs(basket.PaymentIntentId);
+
+            var exisitingOrder = await _unitOfWork.Repository<Order, Guid>().GetWithSpecsByIdAsync(specs);
+
+            if (exisitingOrder is null)
+                await _paymentService.CreateOrUpdatePaymentIntent(basket);
+
+
 
             #endregion
-            #region Create Order
+                #region Create Order
             var MappedShippingAddress = _mapper.Map<ShippingAddress>(input.ShippingAddress);
             var MappedOrderItems = _mapper.Map<List<OrderItem>>(orderItems);
             var order = new Order
@@ -81,7 +95,7 @@ namespace Store.Service.Services.OrderService
                 BasketId = input.BasketId,
                 Orderitems = MappedOrderItems,
                 SubTotal = subtotal,
-                
+                PaymentIntentId = basket.PaymentIntentId,
             };
             await _unitOfWork.Repository<Order,Guid>().AddAsync(order);
             await _unitOfWork.CompleteAsync();
