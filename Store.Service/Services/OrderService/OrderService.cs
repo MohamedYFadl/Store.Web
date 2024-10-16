@@ -122,7 +122,7 @@ namespace Store.Service.Services.OrderService
            => await _unitOfWork.Repository<DeliveryMethod, int>().GetAllAsync();
 
 
-        public async Task<OrderDetailsDto> GetOrderByIdAsync(Guid id)
+        public async Task<OrderDetailsDto> GetOrderByIdAsync(Guid id) // Email !!
         {
             var specs = new OrderWithItemSpec(id);
             var order = await _unitOfWork.Repository<Order, Guid>().GetWithSpecsByIdAsync(specs);
